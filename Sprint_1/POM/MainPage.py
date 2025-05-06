@@ -1,22 +1,18 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-
 from Sprint_1.POM.GeneralPage import GeneralPage
 
-
 class MainPageClass(GeneralPage):
-
-    def __init__(self):
+    def __init__(self, browser):
         self.url = 'http://localhost:4200/'
-        super().__init__(self.url)
-        self.wait = WebDriverWait(self.browser, 7)
+        super().__init__(self.url, browser)
 
-    def webelement_by_id(self, id):
-        return self.wait.until(EC.element_to_be_clickable((By.ID, f'{id}')))
+    def logo(self):
+        return self.webelement_by_id('logo-side')
 
-    def button_products(self):
-        return self.wait.until(EC.element_to_be_clickable((By.LINK_TEXT, 'Products')))
+    def link_products(self):
+        return self.webelement_by_xpath('//span[text()=" Products "]')
+
+    def link_newProduct(self):
+        return self.webelement_by_id('button_newProduct')
 
     def button_login(self):
         return self.webelement_by_id('regLogin')
@@ -30,11 +26,18 @@ class MainPageClass(GeneralPage):
     def button_search(self):
         return self.webelement_by_id('button_search')
 
+    def button_logOut(self):
+        return self.webelement_by_id('button_logOut')
+
     def button_filter(self):
         return self.webelement_by_id('mat-select-0')
 
     def button_filter_off(self):
         return self.webelement_by_id('filter-off')
 
-    def list_products(self):
-        return self.wait.until(EC.visibility_of_all_elements_located((By.XPATH, '//div[@_ngcontent-qoa-c66]')))
+    def buttons_details(self):
+        return self.webelements_by_id('button_details')
+
+    def buttons_add_cart(self):
+        return self.webelements_by_id('button_addToCart')
+

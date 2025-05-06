@@ -1,12 +1,12 @@
-from Sprint_1.POM.generate_preconfigured_browser import generate_preconfigured_browser
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class GeneralPage(object):
-    def __init__(self, url, browser=None):
+    def __init__(self, url, browser):
         self.url = url
-        if browser is None:
-            self.browser = generate_preconfigured_browser()
-        else:
-            self.browser = browser
+        self.browser = browser
+        self.wait = WebDriverWait(self.browser, 7)
 
     def get(self):
         self.browser.get(self.url)
@@ -25,3 +25,13 @@ class GeneralPage(object):
 
     def get_url(self):
         return self.browser.current_url
+
+    def webelement_by_xpath(self, xpath):
+        return self.wait.until(EC.element_to_be_clickable((By.XPATH, f'{xpath}')))
+
+    def webelement_by_id(self, id):
+        return self.wait.until(EC.element_to_be_clickable((By.ID, f'{id}')))
+
+    def webelements_by_id(self, id):
+        return self.wait.until(EC.visibility_of_all_elements_located((By.ID, f'{id}')))
+
