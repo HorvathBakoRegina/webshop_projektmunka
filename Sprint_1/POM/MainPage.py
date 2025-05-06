@@ -20,6 +20,9 @@ class MainPageClass(GeneralPage):
     def button_reLogin(self):
         return self.webelement_by_id('regLogin')
 
+    def button_profile(self):
+        return self.webelement_by_id('profile')
+
     def button_myCart(self):
         return self.webelement_by_id('button_myCart')
 
