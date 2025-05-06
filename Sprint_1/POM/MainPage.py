@@ -8,13 +8,16 @@ class MainPageClass(GeneralPage):
     def logo(self):
         return self.webelement_by_id('logo-side')
 
-    def link_products(self):
+    def button_products(self):
         return self.webelement_by_xpath('//span[text()=" Products "]')
 
-    def link_newProduct(self):
+    def button_newProduct(self):
         return self.webelement_by_id('button_newProduct')
 
-    def button_login(self):
+    def button_Categories(self):
+        return self.webelement_by_id('button_categories')
+
+    def button_reLogin(self):
         return self.webelement_by_id('regLogin')
 
     def button_myCart(self):
@@ -41,3 +44,8 @@ class MainPageClass(GeneralPage):
     def buttons_add_cart(self):
         return self.webelements_by_id('button_addToCart')
 
+    def buttons_edit(self):
+        return self.webelements_by_id('button_edit')
+
+    def buttons_delete(self):
+        return self.webelements_by_id('button_delete')
