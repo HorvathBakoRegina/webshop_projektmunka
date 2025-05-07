@@ -1,12 +1,12 @@
 from selenium.webdriver.common.by import By
-
+from Sprint_1.POM.GeneralPage import GeneralPage
 
 class PurchasePage:
     def __init__(self, browser):
         self.browser = browser
 
     def product_add_to_cart(self, index=0):
-        self.browser.find_element(By.ID, 'button_addToCart')[index].click()  # itt is indexelni kell?
+        self.browser.find_element(By.ID, 'button_addToCart')[index].click()
 
     def open_cart(self):
         self.browser.find_element(By.ID, "button_myCart").click()
