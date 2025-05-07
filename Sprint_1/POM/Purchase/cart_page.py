@@ -10,16 +10,22 @@ class MyCartPage:
         self.browser = browser
 
     def open_cart(self):
-        return self.browser.find_element(By.ID, "button_myCart").click()
+        self.browser.find_element(By.ID, "button_myCart").click()
 
     def continue_shopping(self):
-        return self.browser.find_element(By.XPATH, "//span[text()='Continue shopping']").click()
+        self.browser.find_element(By.XPATH, "//span[text()='Continue shopping']").click()
 
-    def remove_item(self):
-        minus_button = self.browser.find_elements(By.XPATH, "//button[contains(@class, 'minus_button')]") # itt indexelni kell mert több ilyen gomb van
-        minus_button.click()
-        x_button = self.browser.find_element(By.XPATH, "//mat-icon[text()='close']") # itt indexelni kell mert több ilyen gomb van
-        x_button.click()
+    def remove_item(self, index=0):
+        try:
+            minus_buttons = self.browser.find_elements(By.XPATH, "//button[contains(@class, 'minus_button')]")
+            if minus_buttons:
+                minus_buttons[index].click()
+
+            x_buttons = self.browser.find_elements(By.XPATH, "//mat-icon[text()='close']")
+            if x_buttons:
+                x_buttons[index].click()
+        except IndexError:
+            print("Item not found at the given index.")
 
     def click_checkout(self):
         self.browser.find_element(By.XPATH, "//span[text()='Check out']").click()
