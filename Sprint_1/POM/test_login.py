@@ -18,4 +18,4 @@ class TestTC(object):
         self.pageLogin.input_password().send_keys('Teszt1234!')
         self.pageLogin.button_login().click()
 
-        assert self.pageMain.link_newProduct().is_enabled()
+        assert self.pageMain.button_logOut().is_enabled()
