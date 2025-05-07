@@ -34,3 +34,6 @@ class LoginPageClass(GeneralPage):
 
     def button_login(self):
         return self.webelement_by_xpath('//button[@type="submit"]')
+
+    def success_message(self):
+        return self.webelement_by_xpath('//div[@class="success_message ng-star-inserted"]')
