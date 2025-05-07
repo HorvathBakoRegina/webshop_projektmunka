@@ -17,7 +17,9 @@ class MyCartPage:
 
     def remove_item(self):
         minus_button = self.browser.find_elements(By.XPATH, "//button[contains(@class, 'minus_button')]") # itt indexelni kell mert több ilyen gomb van
+        minus_button.click()
         x_button = self.browser.find_element(By.XPATH, "//mat-icon[text()='close']") # itt indexelni kell mert több ilyen gomb van
+        x_button.click()
 
     def click_checkout(self):
         self.browser.find_element(By.XPATH, "//span[text()='Check out']").click()
