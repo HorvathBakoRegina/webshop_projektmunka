@@ -6,7 +6,7 @@ class PurchasePage:
         self.browser = browser
 
     def product_add_to_cart(self, index=0):
-        self.browser.find_element(By.ID, 'button_addToCart')[index].click  # itt is indexelni kell?
+        self.browser.find_element(By.ID, 'button_addToCart')[index].click()  # itt is indexelni kell?
 
     def open_cart(self):
         self.browser.find_element(By.ID, "button_myCart").click()
