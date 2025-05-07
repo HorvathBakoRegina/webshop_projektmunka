@@ -13,7 +13,7 @@ class MyCartPage:
         return self.browser.find_element(By.ID, "button_myCart").click()
 
     def continue_shopping(self):
-        return self.browser.find_element(By.XPATH, "//span[text()='Continue shopping']").clikc()
+        return self.browser.find_element(By.XPATH, "//span[text()='Continue shopping']").click()
 
     def remove_item(self):
         minus_button = self.browser.find_elements(By.XPATH, "//button[contains(@class, 'minus_button')]") # itt indexelni kell mert több ilyen gomb van
