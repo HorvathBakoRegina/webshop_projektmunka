@@ -8,20 +8,6 @@ class LoginPageClass(GeneralPage):
     def button_create_account(self):
         return self.webelement_by_xpath('//button[text()="Create Account"]')
 
-    def input_reg_email(self):
-        return self.webelement_by_xpath('//input[@formcontrolname="email"]')
-
-    def input_reg_user(self):
-        return self.webelement_by_xpath('//input[@formcontrolname="userName"]')
-
-    def input_password_first(self):
-        return self.webelement_by_xpath('//input[@formcontrolname="password"]')
-
-    def input_password_again(self):
-        return self.webelement_by_xpath('//input[@formcontrolname="confirmPassword"]')
-
-    def button_register(self):
-        return self.webelement_by_xpath('//button[@type="submit"]')
 
     def button_sign_in(self):
         return self.webelement_by_xpath('//button[text()="Sign In"]')
@@ -35,5 +21,3 @@ class LoginPageClass(GeneralPage):
     def button_login(self):
         return self.webelement_by_xpath('//button[@type="submit"]')
 
-    def success_message(self):
-        return self.webelement_by_xpath('//div[@class="success_message ng-star-inserted"]')
