@@ -36,7 +36,7 @@ class MainPageClass(GeneralPage):
         return self.webelement_by_id('button_logOut')
 
     def button_filter(self):
-        return self.webelement_by_id('mat-select-0')
+        return self.webelement_by_id('filter-on')
 
     def button_filter_off(self):
         return self.webelement_by_id('filter-off')

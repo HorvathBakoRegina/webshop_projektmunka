@@ -9,16 +9,16 @@ class LoginPageClass(GeneralPage):
         return self.webelement_by_xpath('//button[text()="Create Account"]')
 
     def input_reg_email(self):
-        return self.webelement_by_id('mat-input-2')
+        return self.webelement_by_xpath('//input[@formcontrolname="email"]')
 
     def input_reg_user(self):
-        return self.webelement_by_id('mat-input-9')
+        return self.webelement_by_xpath('//input[@formcontrolname="userName"]')
 
     def input_password_first(self):
-        return self.webelement_by_id('mat-input-10')
+        return self.webelement_by_xpath('//input[@formcontrolname="password"]')
 
     def input_password_again(self):
-        return self.webelement_by_id('mat-input-11')
+        return self.webelement_by_xpath('//input[@formcontrolname="confirmPassword"]')
 
     def button_register(self):
         return self.webelement_by_xpath('//button[@type="submit"]')
