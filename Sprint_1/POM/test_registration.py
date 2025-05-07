@@ -11,10 +11,3 @@ class TestTC(object):
 
     def teardown_method(self):
         self.pageMain.quit()
-
-    def test_login(self):
-        self.pageLogin.input_username().send_keys('HB_Regi1')
-        self.pageLogin.input_password().send_keys('Teszt1234!')
-        self.pageLogin.button_login().click()
-
-        assert self.pageMain.button_logOut().is_enabled()
