@@ -43,6 +43,9 @@ class GeneralPage(object):
     def webelements_by_xpath(self, xpath):
         return self.wait.until(EC.visibility_of_all_elements_located((By.XPATH, f'{xpath}')))
 
+    def webelement_by_classname(self, classname):
+        return self.wait.until(EC.element_to_be_clickable((By.CLASS_NAME, f'{classname}')))
+
     def generate_username(self):
         characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
         return ''.join(random.choice(characters) for _ in range(10))

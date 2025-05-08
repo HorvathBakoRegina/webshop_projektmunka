@@ -1,12 +1,17 @@
 from selenium.webdriver.common.by import By
 from Sprint_1.POM.GeneralPage import GeneralPage
 
-class PurchasePage:
+class PurchasePage(GeneralPage):
     def __init__(self, browser):
-        self.browser = browser
+        self.url = 'http://localhost:4200/registration'
+        super().__init__(self.url, browser)
+
+    def products_list(self):
+        return (self.webelement_by_xpath('//div[contains(@class, "col") and contains(@class, "ng-star-inserted") and @id]')
+            self.browser.find_elements(By.XPATH, '//div[contains(@class, "col") and contains(@class, "ng-star-inserted") and @id]'))
 
     def product_add_to_cart(self, index=0):
-        self.browser.find_element(By.ID, 'button_addToCart')[index].click()
+        self.browser.find_elements(By.ID, 'button_addToCart')[index].click()
 
     def open_cart(self):
         self.browser.find_element(By.ID, "button_myCart").click()
