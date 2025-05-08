@@ -7,7 +7,8 @@ class PurchasePage(GeneralPage):
         super().__init__(self.url, browser)
 
     def products_list(self):
-        return self.browser.find_elements(By.XPATH, '//div[contains(@class, "col") and contains(@class, "ng-star-inserted") and @id]')
+        return (self.webelement_by_xpath('//div[contains(@class, "col") and contains(@class, "ng-star-inserted") and @id]')
+            self.browser.find_elements(By.XPATH, '//div[contains(@class, "col") and contains(@class, "ng-star-inserted") and @id]'))
 
     def product_add_to_cart(self, index=0):
         self.browser.find_elements(By.ID, 'button_addToCart')[index].click()
