@@ -1,14 +1,10 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.select import Select
 from Sprint_1.POM.GeneralPage import GeneralPage
 
-class MyCartPage:
+class MyCartPage(GeneralPage):
     def __init__(self, browser):
-        self.browser = browser
+        self.url = 'http://localhost:4200/registration'
+        super().__init__(self.url, browser)
 
     def open_cart(self):
         self.browser.find_element(By.ID, "button_myCart").click()
