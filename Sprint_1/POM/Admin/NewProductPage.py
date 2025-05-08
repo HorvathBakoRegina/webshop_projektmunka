@@ -1,15 +1,16 @@
 from Sprint_1.POM.GeneralPage import GeneralPage
+from selenium.webdriver.support.select import Select
 
-class MainPageClass(GeneralPage):
+class NewProductPageClass(GeneralPage):
     def __init__(self, browser):
-        self.url = 'http://localhost:4200/'
+        self.url = 'http://localhost:4200/new-product'
         super().__init__(self.url, browser)
 
     def product_name(self):
         return self.webelement_by_id('input_pName')
 
-    def product_category(self):
-        return self.webelements_by_id('input_Select')
+    def product_category(self, index):
+        return Select(self.webelement_by_id('input_Select')).select_by_index(index)
 
     def product_price(self):
         return self.webelement_by_id('input_pPrice')
