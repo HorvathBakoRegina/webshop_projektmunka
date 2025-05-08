@@ -9,7 +9,6 @@ class PurchasePage(GeneralPage):
     def products_list(self):
         return self.browser.find_elements(By.XPATH, '//div[contains(@class, "col") and contains(@class, "ng-star-inserted") and @id]')
 
-
     def product_add_to_cart(self, index=0):
         self.browser.find_elements(By.ID, 'button_addToCart')[index].click()
 
