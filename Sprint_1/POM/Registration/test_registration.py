@@ -1,15 +1,21 @@
 import time
 import mysql.connector
+import random
 
 from Sprint_1.POM.MainPage import MainPageClass
 from Sprint_1.POM.LoginPage import LoginPageClass
-from TemporaryEmailPage import TemporaryEmailPageClass
 from RegistrationPage import RegistrationPageClass
 from Sprint_1.POM.generate_preconfigured_browser import generate_preconfigured_browser
 
+characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+
+length = 10
+username = ''.join(random.choice(characters) for _ in range(length))
+
+
 TESTDATA = {
-    "E-mail": 'test@test.com',
-    "Username": 'barmi8489',
+    "E-mail": f'{username}@test.com',
+    "Username": f'{username}',
     "Password": 'Test1234!',
 }
 
@@ -34,13 +40,34 @@ class TestTC(object):
         assert self.pageRegistration.success_message().is_enabled()
 
         connection = mysql.connector.connect(user="root",
-                                    password="",
-                                    host="localhost:3306",
+                                    password="test1234",
+                                    host="127.0.0.1",
                                     database="webshop")
 
         assert connection.is_connected()
 
+        search_email = TESTDATA["E-mail"]
+        search = f"SELECT * FROM webshop.custom_user where email = '{search_email}';"
 
+        kurzor = connection.cursor(dictionary=True)
+        kurzor.execute(search)
+
+        sor = kurzor.fetchone()
+        adat_lista = []
+        for i in sor.values():
+            adat_lista.append(i)
+
+        print(adat_lista)
+
+        update = "UPDATE custom_user SET enabled = %s WHERE email = %s;"
+        values = [1, f'{search_email}']
+
+        kurzor.execute(update, values)
+        connection.commit()
+
+        print("UPDATE sikeres!")
+
+        self.pageLogin.button_sign_in().click()
 
         self.pageLogin.input_username().send_keys(TESTDATA['Username'])
         self.pageLogin.input_password().send_keys(TESTDATA['Password'])
