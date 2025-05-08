@@ -47,16 +47,13 @@ class TestTC(object):
         assert (self.pageRegistration.input_password_first().get_attribute("aria-invalid") == 'true' or
                 self.pageRegistration.input_password_again().get_attribute('aria-invalid') == 'true')
 
-        print(self.pageRegistration.input_password_first().get_attribute("aria-invalid"))
-
     def test_registration_password_empty(self):
         username = generate_username()
         email = f"{username}@test.com"
 
         self.pageRegistration.input_reg_email().send_keys(email)
         self.pageRegistration.input_reg_user().send_keys(username)
-        self.pageRegistration.input_password_first().send_keys()
-        self.pageRegistration.input_password_again().send_keys()
+        self.pageRegistration.input_password_first().click()
         self.pageRegistration.input_reg_email().click()
 
         assert self.pageRegistration.error_message_empty_pw().text == 'You must enter a password'
