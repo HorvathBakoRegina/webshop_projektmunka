@@ -8,9 +8,6 @@ from Sprint_1.POM.LoginPage import LoginPageClass
 from RegistrationPage import RegistrationPageClass
 from Sprint_1.POM.generate_preconfigured_browser import generate_preconfigured_browser
 
-def generate_username():
-    characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-    return ''.join(random.choice(characters) for _ in range(10))
 
 def load_test_data():
     testdata_list = []
@@ -35,7 +32,7 @@ class TestTC(object):
 
     @pytest.mark.parametrize("password_1, password_2", load_test_data())
     def test_registration_password(self, password_1, password_2):
-        username = generate_username()
+        username = self.pageRegistration.generate_username()
         email = f"{username}@test.com"
 
         self.pageRegistration.input_reg_email().send_keys(email)
@@ -48,7 +45,7 @@ class TestTC(object):
                 self.pageRegistration.input_password_again().get_attribute('aria-invalid') == 'true')
 
     def test_registration_password_empty(self):
-        username = generate_username()
+        username = self.pageRegistration.generate_username()
         email = f"{username}@test.com"
 
         self.pageRegistration.input_reg_email().send_keys(email)

@@ -1,7 +1,8 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium import webdriver
+import random
+
 
 class GeneralPage(object):
     def __init__(self, url, browser):
@@ -41,4 +42,8 @@ class GeneralPage(object):
 
     def webelements_by_xpath(self, xpath):
         return self.wait.until(EC.visibility_of_all_elements_located((By.XPATH, f'{xpath}')))
+
+    def generate_username(self):
+        characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+        return ''.join(random.choice(characters) for _ in range(10))
 
