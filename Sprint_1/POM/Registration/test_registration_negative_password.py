@@ -34,7 +34,7 @@ class TestTC(object):
         self.pageMain.quit()
 
     @pytest.mark.parametrize("password_1, password_2", load_test_data())
-    def test_registration(self, password_1, password_2):
+    def test_registration_password(self, password_1, password_2):
         username = generate_username()
         email = f"{username}@test.com"
 
@@ -44,5 +44,19 @@ class TestTC(object):
         self.pageRegistration.input_password_again().send_keys(password_2)
         self.pageRegistration.input_reg_email().click()
 
-        assert self.pageRegistration.input_password_first().get_attribute("aria-invalid") != False
+        assert (self.pageRegistration.input_password_first().get_attribute("aria-invalid") == 'true' or
+                self.pageRegistration.input_password_again().get_attribute('aria-invalid') == 'true')
 
+        print(self.pageRegistration.input_password_first().get_attribute("aria-invalid"))
+
+    def test_registration_password_empty(self):
+        username = generate_username()
+        email = f"{username}@test.com"
+
+        self.pageRegistration.input_reg_email().send_keys(email)
+        self.pageRegistration.input_reg_user().send_keys(username)
+        self.pageRegistration.input_password_first().send_keys()
+        self.pageRegistration.input_password_again().send_keys()
+        self.pageRegistration.input_reg_email().click()
+
+        assert self.pageRegistration.error_message_empty_pw().text == 'You must enter a password'
