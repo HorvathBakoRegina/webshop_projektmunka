@@ -1,4 +1,3 @@
-import time
 import mysql.connector
 import random
 
@@ -11,7 +10,6 @@ characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 
 length = 10
 username = ''.join(random.choice(characters) for _ in range(length))
-
 
 TESTDATA = {
     "E-mail": f'{username}@test.com',
@@ -30,7 +28,7 @@ class TestTC(object):
     def teardown_method(self):
         self.pageMain.quit()
 
-    def test_login(self):
+    def test_registration(self):
         self.pageRegistration.input_reg_email().send_keys(TESTDATA['E-mail'])
         self.pageRegistration.input_reg_user().send_keys(TESTDATA['Username'])
         self.pageRegistration.input_password_first().send_keys(TESTDATA['Password'])
@@ -46,26 +44,14 @@ class TestTC(object):
 
         assert connection.is_connected()
 
-        search_email = TESTDATA["E-mail"]
-        search = f"SELECT * FROM webshop.custom_user where email = '{search_email}';"
-
+        db_email = TESTDATA["E-mail"]
         kurzor = connection.cursor(dictionary=True)
-        kurzor.execute(search)
-
-        sor = kurzor.fetchone()
-        adat_lista = []
-        for i in sor.values():
-            adat_lista.append(i)
-
-        print(adat_lista)
 
         update = "UPDATE custom_user SET enabled = %s WHERE email = %s;"
-        values = [1, f'{search_email}']
+        values = [1, f'{db_email}']
 
         kurzor.execute(update, values)
         connection.commit()
-
-        print("UPDATE sikeres!")
 
         self.pageLogin.button_sign_in().click()
 
@@ -74,5 +60,3 @@ class TestTC(object):
         self.pageLogin.button_login().click()
 
         assert self.pageMain.button_logOut().is_enabled()
-
-

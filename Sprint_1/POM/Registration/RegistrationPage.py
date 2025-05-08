@@ -22,3 +22,9 @@ class RegistrationPageClass(GeneralPage):
 
     def success_message(self):
         return self.webelement_by_xpath('//div[@class="success_message ng-star-inserted"]')
+
+    def password_checks(self):
+        return self.webelements_by_xpath('//mat-icon[@class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color green"]')
+
+    def error_message_different_pw(self):
+        return self.webelement_by_xpath('//input[@formcontrolname="confirmPassword"]/../../../div[3]/div/mat-error')
