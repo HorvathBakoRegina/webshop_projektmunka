@@ -6,7 +6,6 @@ from Sprint_1.POM.LoginPage import LoginPageClass
 from RegistrationPage import RegistrationPageClass
 from Sprint_1.POM.generate_preconfigured_browser import generate_preconfigured_browser
 
-
 def load_test_data():
     testdata_list = []
     path = "testdata_registration_negative_password.csv"

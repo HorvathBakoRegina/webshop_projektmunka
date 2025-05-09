@@ -43,3 +43,4 @@ class RegistrationPageClass(GeneralPage):
     def generate_username_accent(self):
         characters = 'éáűúőüóöíÉÁŰŐÚÓÜÖÍ'
         return ''.join(random.choice(characters) for _ in range(1))
+
