@@ -1,6 +1,4 @@
-import random
 import csv
-
 import pytest
 
 from Sprint_1.POM.MainPage import MainPageClass

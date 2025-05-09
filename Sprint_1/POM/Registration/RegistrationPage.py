@@ -28,3 +28,9 @@ class RegistrationPageClass(GeneralPage):
 
     def error_message_empty_pw(self):
         return self.webelement_by_xpath('//input[@formcontrolname="password"]/../../../div[3]/div/mat-error')
+
+    def error_message_wrong_email(self):
+        return self.webelement_by_xpath('//input[@formcontrolname="email"]/../../../div[3]/div/mat-error')
+
+    def error_message_exist_email(self):
+        return self.webelement_by_xpath('//form/div/mat-error')
