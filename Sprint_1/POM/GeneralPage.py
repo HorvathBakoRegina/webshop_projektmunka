@@ -51,5 +51,5 @@ class GeneralPage(object):
 
     def generate_username(self):
         characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-        return ''.join(random.choice(characters) for _ in range(10))
+        return ''.join(random.choice(characters) for _ in range(8))
 

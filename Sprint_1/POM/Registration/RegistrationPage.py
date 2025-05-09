@@ -1,3 +1,5 @@
+import random
+
 from Sprint_1.POM.GeneralPage import GeneralPage
 
 class RegistrationPageClass(GeneralPage):
@@ -34,3 +36,10 @@ class RegistrationPageClass(GeneralPage):
 
     def error_message_exist_email(self):
         return self.webelement_by_xpath('//form/div/mat-error')
+
+    def error_message_wrong_username(self):
+        return self.webelement_by_xpath('//input[@formcontrolname="userName"]/../../../div[3]/div/mat-error')
+
+    def generate_username_accent(self):
+        characters = 'éáűúőüóöíÉÁŰŐÚÓÜÖÍ'
+        return ''.join(random.choice(characters) for _ in range(1))
