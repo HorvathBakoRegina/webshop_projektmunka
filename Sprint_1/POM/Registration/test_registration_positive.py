@@ -13,7 +13,7 @@ class TestTC(object):
         self.pageRegistration.get()
 
     def teardown_method(self):
-        pass#self.pageMain.quit()
+        self.pageMain.quit()
 
     def test_registration(self):
         helper = TestHelper(self.browser)
