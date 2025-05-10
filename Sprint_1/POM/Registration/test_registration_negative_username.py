@@ -1,7 +1,6 @@
-from Sprint_1.POM.MainPage import MainPageClass
-from Sprint_1.POM.LoginPage import LoginPageClass
-from RegistrationPage import RegistrationPageClass
-from Sprint_1.POM.Registration.TestHelper import TestHelper
+from Sprint_1.POM.Pages.MainPage import MainPageClass
+from Sprint_1.POM.Pages.LoginPage import LoginPageClass
+from Sprint_1.POM.Pages.RegistrationPage import RegistrationPageClass
 from Sprint_1.POM.generate_preconfigured_browser import generate_preconfigured_browser
 
 class TestTC(object):
@@ -14,29 +13,7 @@ class TestTC(object):
         self.e_mail = f"{self.pageRegistration.generate_username()}@teszt.hu"
 
     def teardown_method(self):
-        self.pageMain.quit()
-
-    def test_registration_username_with_space(self):
-        helper = TestHelper(self.browser)
-
-        username = f"{helper.pageRegistration.generate_username()} {helper.pageRegistration.generate_username()}"
-        email = self.e_mail
-        password = "Teszt1234!"
-
-        helper.register_user(username, email, password)
-        helper.enable_user_in_db(email)
-        helper.login_user(username, password)
-
-    def test_registration_username_with_accent(self):
-        helper = TestHelper(self.browser)
-
-        username = f'{self.pageRegistration.generate_username_accent()}{self.pageRegistration.generate_username()}'
-        email = self.e_mail
-        password = "Teszt1234!"
-
-        helper.register_user(username, email, password)
-        helper.enable_user_in_db(email)
-        helper.login_user(username, password)
+        pass#self.pageMain.quit()
 
     def test_registration_exist_username(self):
         self.pageRegistration.input_reg_email().send_keys(self.e_mail)

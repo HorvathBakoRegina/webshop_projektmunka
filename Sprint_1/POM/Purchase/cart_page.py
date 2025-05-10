@@ -1,4 +1,4 @@
-from Sprint_1.POM.GeneralPage import GeneralPage
+from Sprint_1.POM.Pages.GeneralPage import GeneralPage
 
 
 class MyCartPageClass(GeneralPage):

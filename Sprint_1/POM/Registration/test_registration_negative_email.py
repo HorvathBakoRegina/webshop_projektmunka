@@ -1,11 +1,10 @@
 import csv
 import pytest
 
-from Sprint_1.POM.MainPage import MainPageClass
-from Sprint_1.POM.LoginPage import LoginPageClass
-from RegistrationPage import RegistrationPageClass
+from Sprint_1.POM.Pages.MainPage import MainPageClass
+from Sprint_1.POM.Pages.LoginPage import LoginPageClass
+from Sprint_1.POM.Pages.RegistrationPage import RegistrationPageClass
 from Sprint_1.POM.generate_preconfigured_browser import generate_preconfigured_browser
-
 
 def load_test_data():
     testdata_list = []
@@ -15,7 +14,6 @@ def load_test_data():
         for row in data:
             testdata_list.append((row['e-mail']))
     return testdata_list
-
 
 class TestTC(object):
     def setup_method(self):

@@ -1,4 +1,4 @@
-from Sprint_1.POM.GeneralPage import GeneralPage
+from Sprint_1.POM.Pages.GeneralPage import GeneralPage
 
 class LoginPageClass(GeneralPage):
     def __init__(self, browser):
@@ -21,3 +21,8 @@ class LoginPageClass(GeneralPage):
     def button_login(self):
         return self.webelement_by_xpath('//button[@type="submit"]')
 
+    def login_user(self, username: str, password: str):
+        self.button_sign_in().click()
+        self.input_username().send_keys(username)
+        self.input_password().send_keys(password)
+        self.button_login().click()
