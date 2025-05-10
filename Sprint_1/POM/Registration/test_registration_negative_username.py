@@ -10,16 +10,32 @@ class TestTC(object):
         self.pageLogin = LoginPageClass(self.browser)
         self.pageRegistration = RegistrationPageClass(self.browser)
         self.pageRegistration.get()
-        self.e_mail = f"{self.pageRegistration.generate_username()}@teszt.hu"
+        self.username = self.pageRegistration.generate_username('user')
+        self.e_mail = f"{self.username}@teszt.hu"
 
     def teardown_method(self):
-        pass#self.pageMain.quit()
+        self.pageMain.quit()
 
     def test_registration_exist_username(self):
-        self.pageRegistration.input_reg_email().send_keys(self.e_mail)
-        self.pageRegistration.input_reg_user().send_keys('user')
-        self.pageRegistration.input_password_first().send_keys('Teszt1234!')
-        self.pageRegistration.input_password_again().send_keys('Teszt1234!')
+        username = self.username
+        email = self.e_mail
+        password = 'Teszt1234!'
+
+        self.pageRegistration.register_user(username, email, password)
+        assert self.pageRegistration.success_message().is_enabled()
+        self.pageRegistration.enable_user_in_db(email)
+        assert self.pageRegistration.is_user_enabled_in_db(email)
+        self.pageLogin.login_user(username, password)
+        assert self.pageLogin.button_login().is_enabled()
+        assert self.pageMain.button_logOut().is_enabled()
+
+        self.pageMain.button_logOut().click()
+        self.pageLogin.button_create_account().click()
+
+        self.pageRegistration.input_reg_email().send_keys(f'1{email}')
+        self.pageRegistration.input_reg_user().send_keys(username)
+        self.pageRegistration.input_password_first().send_keys(password)
+        self.pageRegistration.input_password_again().send_keys(password)
         self.pageRegistration.button_register().click()
 
         assert self.pageRegistration.error_message_exist_email().text == 'Username is already in use.'

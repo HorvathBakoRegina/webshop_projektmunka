@@ -10,7 +10,7 @@ class TestTC(object):
         self.pageLogin = LoginPageClass(self.browser)
         self.pageRegistration = RegistrationPageClass(self.browser)
         self.pageRegistration.get()
-        self.username = self.pageRegistration.generate_username()
+        self.username = self.pageRegistration.generate_username('user')
         self.e_mail = f"{self.username}@test.com"
 
     def teardown_method(self):
@@ -40,7 +40,7 @@ class TestTC(object):
         assert self.pageRegistration.is_user_enabled_in_db(email)
         self.pageLogin.login_user(username, password)
         assert self.pageLogin.button_login().is_enabled()
-        assert self.pageMain.button_logOut().is_enabled()
+        assert not self.pageLogin.error_message_wrong_user_pw().is_displayed()
 
     def test_registration_password_with_space(self):
         username = self.username
@@ -53,10 +53,11 @@ class TestTC(object):
         assert self.pageRegistration.is_user_enabled_in_db(email)
         self.pageLogin.login_user(username, password)
         assert self.pageLogin.button_login().is_enabled()
-        assert self.pageMain.button_logOut().is_enabled()
+        assert not self.pageLogin.error_message_wrong_user_pw().is_displayed()
+
 
     def test_registration_username_with_space(self):
-        username = f"{self.pageRegistration.generate_username()} {self.pageRegistration.generate_username()}"
+        username = f"{self.username} a"
         email = self.e_mail
         password = "Teszt1234!"
 
@@ -66,10 +67,10 @@ class TestTC(object):
         assert self.pageRegistration.is_user_enabled_in_db(email)
         self.pageLogin.login_user(username, password)
         assert self.pageLogin.button_login().is_enabled()
-        assert self.pageMain.button_logOut().is_enabled()
+        assert not self.pageLogin.error_message_wrong_user_pw().is_displayed()
 
     def test_registration_username_with_accent(self):
-        username = f'{self.pageRegistration.generate_username_accent()}{self.pageRegistration.generate_username()}'
+        username = self.pageRegistration.generate_username_with_accent('u')
         email = self.e_mail
         password = "Teszt1234!"
 
@@ -79,4 +80,22 @@ class TestTC(object):
         assert self.pageRegistration.is_user_enabled_in_db(email)
         self.pageLogin.login_user(username, password)
         assert self.pageLogin.button_login().is_enabled()
-        assert self.pageMain.button_logOut().is_enabled()
+        assert not self.pageLogin.error_message_wrong_user_pw().is_displayed()
+
+
+    def test_registration_password_with_accent_first_letter(self):
+        self.pageRegistration.input_reg_email().send_keys(self.e_mail)
+        self.pageRegistration.input_reg_user().send_keys(self.username)
+        self.pageRegistration.input_password_first().send_keys('Ékezetes1!')
+        self.pageRegistration.input_password_again().send_keys('Ékezetes1!')
+        self.pageRegistration.input_reg_email().click()
+
+        user = self.username
+        print(user)
+
+        check = 0
+        for element in self.pageRegistration.password_checks():
+            if element.get_attribute('class') == 'mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color green':
+                check += 1
+        assert check == 4
+

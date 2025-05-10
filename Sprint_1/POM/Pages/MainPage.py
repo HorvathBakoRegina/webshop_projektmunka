@@ -1,6 +1,6 @@
-from Sprint_1.POM.Pages.GeneralPage import GeneralPage
+from Sprint_1.POM.Pages.GeneralPage import GeneralPageClass
 
-class MainPageClass(GeneralPage):
+class MainPageClass(GeneralPageClass):
     def __init__(self, browser):
         self.url = 'http://localhost:4200/'
         super().__init__(self.url, browser)

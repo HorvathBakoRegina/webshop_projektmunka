@@ -1,13 +1,12 @@
-from Sprint_1.POM.Pages.GeneralPage import GeneralPage
+from Sprint_1.POM.Pages.GeneralPage import GeneralPageClass
 
-class LoginPageClass(GeneralPage):
+class LoginPageClass(GeneralPageClass):
     def __init__(self, browser):
         self.url = 'http://localhost:4200/login/'
         super().__init__(self.url, browser)
 
     def button_create_account(self):
         return self.webelement_by_xpath('//button[text()="Create Account"]')
-
 
     def button_sign_in(self):
         return self.webelement_by_xpath('//button[text()="Sign In"]')
@@ -20,6 +19,9 @@ class LoginPageClass(GeneralPage):
 
     def button_login(self):
         return self.webelement_by_xpath('//button[@type="submit"]')
+
+    def error_message_wrong_user_pw(self):
+        return self.webelement_by_xpath('//form/div/mat-error')
 
     def login_user(self, username: str, password: str):
         self.button_sign_in().click()

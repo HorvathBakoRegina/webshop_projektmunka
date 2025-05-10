@@ -4,7 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import random
 
 
-class GeneralPage(object):
+class GeneralPageClass(object):
     def __init__(self, url, browser):
         self.url = url
         self.browser = browser
@@ -46,10 +46,13 @@ class GeneralPage(object):
     def webelement_by_classname(self, classname):
         return self.wait.until(EC.element_to_be_clickable((By.CLASS_NAME, f'{classname}')))
 
-    def webelements_by_classname(self, classname):
-        return self.wait.until(EC.element_to_be_clickable((By.CLASS_NAME, f'{classname}')))
+    def webelement_by_formcontrolname(self, formcontrolname):
+        xpath = f'//input[@formcontrolname="{formcontrolname}"]'
+        return self.wait.until(EC.visibility_of_element_located((By.XPATH, f'{xpath}')))
 
-    def generate_username(self):
-        characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-        return ''.join(random.choice(characters) for _ in range(8))
+    def error_message(self, element):
+        attribute = element.get_attribute("aria-describedby")
+        return self.webelement_by_id(f'{attribute}')
+
+
 

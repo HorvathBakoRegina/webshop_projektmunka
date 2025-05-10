@@ -22,7 +22,7 @@ class TestTC(object):
         self.pageLogin = LoginPageClass(self.browser)
         self.pageRegistration = RegistrationPageClass(self.browser)
         self.pageRegistration.get()
-        self.username = self.pageRegistration.generate_username()
+        self.username = self.pageRegistration.generate_username('user')
         self.e_mail = f"{self.username}@test.com"
 
     def teardown_method(self):
@@ -61,18 +61,7 @@ class TestTC(object):
 
         assert self.pageRegistration.error_message_empty_pw().text == 'You must enter a password'
 
-    def test_registration_password_with_accent_first_letter(self):
-        self.pageRegistration.input_reg_email().send_keys(self.e_mail)
-        self.pageRegistration.input_reg_user().send_keys(self.username)
-        self.pageRegistration.input_password_first().send_keys('Ékezetes1!')
-        self.pageRegistration.input_password_again().send_keys('Ékezetes1!')
-        self.pageRegistration.input_reg_email().click()
 
-        check = 0
-        for element in self.pageRegistration.password_checks():
-            if element.get_attribute('class') == 'mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color green':
-                check += 1
-        assert check == 4
 
 
 

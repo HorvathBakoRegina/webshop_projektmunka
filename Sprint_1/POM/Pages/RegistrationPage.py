@@ -1,24 +1,25 @@
-import random
+from datetime import datetime
 import mysql.connector
 
-from Sprint_1.POM.Pages.GeneralPage import GeneralPage
 
-class RegistrationPageClass(GeneralPage):
+from Sprint_1.POM.Pages.GeneralPage import GeneralPageClass
+
+class RegistrationPageClass(GeneralPageClass):
     def __init__(self, browser):
         self.url = 'http://localhost:4200/registration'
         super().__init__(self.url, browser)
 
     def input_reg_email(self):
-        return self.webelement_by_xpath('//input[@formcontrolname="email"]')
+        return self.webelement_by_formcontrolname('email')
 
     def input_reg_user(self):
-        return self.webelement_by_xpath('//input[@formcontrolname="userName"]')
+        return self.webelement_by_formcontrolname('userName')
 
     def input_password_first(self):
-        return self.webelement_by_xpath('//input[@formcontrolname="password"]')
+        return self.webelement_by_formcontrolname('password')
 
     def input_password_again(self):
-        return self.webelement_by_xpath('//input[@formcontrolname="confirmPassword"]')
+        return self.webelement_by_formcontrolname('confirmPassword')
 
     def button_register(self):
         return self.webelement_by_xpath('//button[@type="submit"]')
@@ -30,23 +31,31 @@ class RegistrationPageClass(GeneralPage):
         return self.webelements_by_xpath('//div[@id="checkers"]//mat-icon')
 
     def error_message_empty_pw(self):
-        return self.webelement_by_id((self.input_password_first().get_attribute('aria-describedby')))
+        return self.error_message(self.input_password_first())
 
     def error_message_different_pw(self):
-        return self.webelement_by_id((self.input_password_again().get_attribute('aria-describedby')))
+        return self.error_message(self.input_password_again())
 
     def error_message_wrong_email(self):
-        return self.webelement_by_id((self.input_reg_email().get_attribute('aria-describedby')))
+        return self.error_message(self.input_reg_email())
 
     def error_message_exist_email(self):
         return self.webelement_by_xpath('//form/div/mat-error')
 
     def error_message_wrong_username(self):
-        return self.webelement_by_id((self.input_reg_user().get_attribute('aria-describedby')))
+        return self.error_message(self.input_reg_user())
 
-    def generate_username_accent(self):
-        characters = 'éáűúőüóöíÉÁŰŐÚÓÜÖÍ'
-        return ''.join(random.choice(characters) for _ in range(1))
+    def generate_username(self, prefix):
+        now = datetime.now()
+        timestamp_str = now.strftime("%d%m%y_%H%M%S")
+        tenth = str(now.microsecond)[0]
+        return f"{prefix}_{timestamp_str}{tenth}"
+
+    def generate_username_with_accent(self, prefix):
+        now = datetime.now()
+        timestamp_str = now.strftime("%H%M%S")
+        tenth = str(now.microsecond)[0]
+        return f"é{prefix}{timestamp_str}{tenth}"
 
     def register_user(self, username: str, email: str, password: str):
         self.input_reg_email().send_keys(email)
