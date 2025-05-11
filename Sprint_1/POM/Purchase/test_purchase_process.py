@@ -1,9 +1,9 @@
 from Sprint_1.POM.Pages.LoginPage import LoginPageClass
 from Sprint_1.POM.Pages.MainPage import MainPageClass
 from Sprint_1.POM.Pages.RegistrationPage import RegistrationPageClass
-from Sprint_1.POM.Purchase.purchase_page import PurchasePageClass
+from Sprint_1.POM.Pages.Purchase_Page import PurchasePageClass
 from Sprint_1.POM.generate_preconfigured_browser import generate_preconfigured_browser
-
+import time
 class TestTC(object):
     def setup_method(self):
         self.browser = generate_preconfigured_browser()
@@ -86,6 +86,7 @@ class TestTC(object):
             test_data["billing_address"]["street"]
         )
         self.pagePurchase.click_next()
+        time.sleep(10)
 
         # Shipping Details
         self.pagePurchase.shipping_details(

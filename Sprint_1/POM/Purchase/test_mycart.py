@@ -1,9 +1,9 @@
 from Sprint_1.POM.Pages.LoginPage import LoginPageClass
 from Sprint_1.POM.Pages.MainPage import MainPageClass
 from Sprint_1.POM.Pages.RegistrationPage import RegistrationPageClass
-from Sprint_1.POM.Purchase.purchase_page import PurchasePageClass
+from Sprint_1.POM.Pages.Purchase_Page import PurchasePageClass
 from Sprint_1.POM.generate_preconfigured_browser import generate_preconfigured_browser
-from Sprint_1.POM.Purchase.cart_page import CartPageClass
+from Sprint_1.POM.Pages.Cart_Page import CartPageClass
 
 class TestTC(object):
     def setup_method(self):
