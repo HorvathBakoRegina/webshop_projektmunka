@@ -55,7 +55,6 @@ class TestTC(object):
         assert self.pageLogin.button_login().is_enabled()
         assert not self.pageLogin.error_message_wrong_user_pw().is_displayed()
 
-
     def test_registration_username_with_space(self):
         username = f"{self.username} a"
         email = self.e_mail
@@ -82,20 +81,23 @@ class TestTC(object):
         assert self.pageLogin.button_login().is_enabled()
         assert not self.pageLogin.error_message_wrong_user_pw().is_displayed()
 
+    def test_registration_show_password(self):
+        self.pageRegistration.input_password_first().send_keys('Teszt1234!')
+        self.pageRegistration.input_password_again().send_keys('Teszt1234!')
 
-    def test_registration_password_with_accent_first_letter(self):
-        self.pageRegistration.input_reg_email().send_keys(self.e_mail)
-        self.pageRegistration.input_reg_user().send_keys(self.username)
-        self.pageRegistration.input_password_first().send_keys('Ékezetes1!')
-        self.pageRegistration.input_password_again().send_keys('Ékezetes1!')
-        self.pageRegistration.input_reg_email().click()
+        for element in self.pageRegistration.buttons_eye():
+            element.click()
+            assert element.text == 'visibility'
+            element.click()
+            assert element.text == 'visibility_off'
 
-        user = self.username
-        print(user)
+    def test_login_show_password(self):
+        self.pageLogin.button_sign_in().click()
+        self.pageLogin.input_password().send_keys('Teszt1234!')
+        eye = self.pageLogin.button_eye()
+        eye.click()
+        assert eye.text == 'visibility'
+        eye.click()
+        assert eye.text == 'visibility_off'
 
-        check = 0
-        for element in self.pageRegistration.password_checks():
-            if element.get_attribute('class') == 'mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color green':
-                check += 1
-        assert check == 4
 

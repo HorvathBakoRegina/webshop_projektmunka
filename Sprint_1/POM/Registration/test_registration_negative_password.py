@@ -26,7 +26,7 @@ class TestTC(object):
         self.e_mail = f"{self.username}@test.com"
 
     def teardown_method(self):
-       self.pageMain.quit()
+       pass#self.pageMain.quit()
 
     @pytest.mark.parametrize("password", load_test_data())
     def test_registration_password(self, password):
@@ -60,8 +60,3 @@ class TestTC(object):
         self.pageRegistration.input_reg_email().click()
 
         assert self.pageRegistration.error_message_empty_pw().text == 'You must enter a password'
-
-
-
-
-

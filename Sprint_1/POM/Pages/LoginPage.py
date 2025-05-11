@@ -17,6 +17,9 @@ class LoginPageClass(GeneralPageClass):
     def input_password(self):
         return self.webelement_by_id('password_input')
 
+    def button_eye(self):
+        return self.webelement_by_xpath('//div/button[@mat-icon-button]/span/mat-icon')
+
     def button_login(self):
         return self.webelement_by_xpath('//button[@type="submit"]')
 

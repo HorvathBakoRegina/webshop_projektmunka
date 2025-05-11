@@ -21,6 +21,9 @@ class RegistrationPageClass(GeneralPageClass):
     def input_password_again(self):
         return self.webelement_by_formcontrolname('confirmPassword')
 
+    def buttons_eye(self):
+        return self.webelements_by_xpath('//div/button[@mat-icon-button]/span/mat-icon')
+
     def button_register(self):
         return self.webelement_by_xpath('//button[@type="submit"]')
 
@@ -29,6 +32,18 @@ class RegistrationPageClass(GeneralPageClass):
 
     def password_checks(self):
         return self.webelements_by_xpath('//div[@id="checkers"]//mat-icon')
+
+    def password_check_special(self):
+        return self.webelement_by_xpath('//div[@id="checkers"]/p[1]/mat-icon')
+
+    def password_check_capital(self):
+        return self.webelement_by_xpath('//div[@id="checkers"]/p[2]/mat-icon')
+
+    def password_check_number(self):
+        return self.webelement_by_xpath('//div[@id="checkers"]/p[3]/mat-icon')
+
+    def password_check_length(self):
+        return self.webelement_by_xpath('//div[@id="checkers"]/p[4]/mat-icon')
 
     def error_message_empty_pw(self):
         return self.error_message(self.input_password_first())
