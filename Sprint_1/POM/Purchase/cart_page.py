@@ -1,7 +1,6 @@
-from Sprint_1.POM.Pages.GeneralPage import GeneralPage
+from Sprint_1.POM.Pages.GeneralPage import GeneralPageClass
 
-
-class MyCartPageClass(GeneralPage):
+class CartPageClass(GeneralPageClass):
     def __init__(self, browser):
         self.url = 'http://localhost:4200/registration'
         super().__init__(self.url, browser)
@@ -13,7 +12,6 @@ class MyCartPageClass(GeneralPage):
         self.webelement_by_xpath("//span[text()='Continue shopping']").click()
 
     def remove_item(self):
-        minus_buttons = self.webelement_by_xpath("//button[contains(@class, 'minus_button')]")
         x_buttons = self.webelement_by_xpath("//mat-icon[text()='close']")
 
     def click_checkout(self):

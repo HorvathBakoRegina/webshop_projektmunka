@@ -1,7 +1,7 @@
-from Sprint_1.POM.Pages.GeneralPage import GeneralPage
+from Sprint_1.POM.Pages.GeneralPage import GeneralPageClass
 
 
-class PurchasePageClass(GeneralPage):
+class PurchasePageClass(GeneralPageClass):
     def __init__(self, browser):
         self.url = 'http://localhost:4200/registration'
         super().__init__(self.url, browser)
@@ -11,7 +11,7 @@ class PurchasePageClass(GeneralPage):
             '//div[contains(@class, "col") and contains(@class, "ng-star-inserted") and @id]')
 
     def product_add_to_cart(self, index=0):
-        self.webelement_by_id('button_addToCart')[index].click()
+        self.webelements_by_id('button_addToCart')[index].click()
 
     def open_cart(self):
         self.webelement_by_id("button_myCart").click()
@@ -23,11 +23,17 @@ class PurchasePageClass(GeneralPage):
         self.webelement_by_xpath("//span[text()='Back to the cart ']").click()
 
     def click_next(self):
-        self.webelements_by_classname("next_btn").click()
+        next_buttons = self.webelements_by_classname("next_btn")
+        for btn in next_buttons:
+            if btn.is_displayed() and btn.is_enabled():
+                btn.click()
+                break
 
     def enter_customer_details(self, name, email, phone):
         self.webelement_by_xpath('//input[@id="formName_input"]').send_keys(name)
-        self.webelement_by_xpath('//input[@id="formEmail_input"]').send_keys(email)
+        email_input = self.webelement_by_xpath('//input[@id="formEmail_input"]')
+        email_input.clear()
+        email_input.send_keys(email)
         self.webelement_by_xpath('//input[@id="formPhoneNumber_input"]').send_keys(phone)
 
     def billing_details(self, name, zip_code, city, street_nr):
