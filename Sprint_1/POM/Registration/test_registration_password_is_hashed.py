@@ -2,6 +2,7 @@ from Sprint_1.POM.Pages.MainPage import MainPageClass
 from Sprint_1.POM.Pages.LoginPage import LoginPageClass
 from Sprint_1.POM.Pages.RegistrationPage import RegistrationPageClass
 from Sprint_1.POM.generate_preconfigured_browser import generate_preconfigured_browser
+import bcrypt
 
 class TestTC(object):
     def setup_method(self):
@@ -20,6 +21,7 @@ class TestTC(object):
         username = self.username
         email = self.e_mail
         password = 'Teszt1234!'
+        password_bytes = password.encode()
 
         self.pageRegistration.register_user(username, email, password)
         assert self.pageRegistration.success_message().is_enabled()
@@ -29,8 +31,8 @@ class TestTC(object):
         assert self.pageLogin.button_login().is_enabled()
         assert self.pageMain.button_logOut().is_enabled()
 
-        self.browser.get("http://localhost:4200/registration")
+        hashed_password = (self.pageRegistration.get_user_password_by_email(email)).encode()
 
-        assert self.pageMain.button_logOut().is_enabled()
-        assert not self.pageRegistration.input_reg_email().is_enabled()
+        assert password_bytes != hashed_password
+        assert bcrypt.checkpw(password_bytes, hashed_password)
 

@@ -112,4 +112,22 @@ class RegistrationPageClass(GeneralPageClass):
             return result['enabled'] == 1
         return False
 
+    def get_user_password_by_email(self, email):
+        connection = mysql.connector.connect(
+            user="root",
+            password="test1234",
+            host="127.0.0.1",
+            database="webshop"
+        )
+        cursor = connection.cursor(dictionary=True)
+        query = "SELECT password FROM custom_user WHERE email = %s;"
+        cursor.execute(query, [email])
+        result = cursor.fetchone()
+        cursor.close()
+        connection.close()
+
+        if result is not None:
+            return result['password']
+        return None
+
 
