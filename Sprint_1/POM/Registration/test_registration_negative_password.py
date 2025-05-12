@@ -26,7 +26,7 @@ class TestTC(object):
         self.e_mail = f"{self.username}@test.com"
 
     def teardown_method(self):
-       pass#self.pageMain.quit()
+       self.pageMain.quit()
 
     @pytest.mark.parametrize("password", load_test_data())
     def test_registration_password(self, password):
