@@ -101,12 +101,10 @@ class TestTC(object):
         self.pagePurchase.delivery_info(note=test_data["delivery_note"])
         self.pagePurchase.click_next()
 
-        # # Payment Options
-        # self.pagePurchase.payment_opt(method=test_data["payment_method"])
-        # self.pagePurchase.webelement_by_classname("send_btn").click()
-        #
-        # # Payment Confirmation
-        # confirmation_message = self.pagePurchase.get_payment_confirmation_message()
-        #
-        # # Ellenőrizzük, hogy a megrendelés visszaigazolása megjelenik
-        # assert "The order has been sent" in confirmation_message
+        # Payment Options
+        self.pagePurchase.payment_opt(method=test_data["payment_method"])
+        self.pagePurchase.webelement_by_classname("send_btn").click()
+
+        # Payment Confirmation
+        confirmation_message = self.pagePurchase.get_payment_confirmation_message()
+        assert "The order has been sent" in confirmation_message

@@ -12,6 +12,7 @@ class TestTC(object):
         self.pageLogin = LoginPageClass(self.browser)
         self.pageRegistration = RegistrationPageClass(self.browser)
         self.pagePurchase = PurchasePageClass(self.browser)
+        self.pageCart = CartPageClass(self.browser)
         self.pageRegistration.get()
         self.username = self.pageRegistration.generate_username('user')
         self.e_mail = f"{self.username}@test.com"
@@ -70,7 +71,7 @@ class TestTC(object):
         for index in add_more_products:
             self.pagePurchase.product_add_to_cart(index=index)
         self.pagePurchase.open_cart()
-        self.pageCartPageClass.remove_item(index=0)
+        self.pageCart.remove_item()
         self.pagePurchase.click_checkout()
 
         # Order Details
