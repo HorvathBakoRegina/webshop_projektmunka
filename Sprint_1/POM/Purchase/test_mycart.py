@@ -109,6 +109,4 @@ class TestTC(object):
 
         # Payment Confirmation
         confirmation_message = self.pagePurchase.get_payment_confirmation_message()
-
-        # Ellenőrizzük, hogy a megrendelés visszaigazolása megjelenik
         assert "The order has been sent" in confirmation_message
