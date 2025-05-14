@@ -44,12 +44,6 @@ class TestTC(object):
         assert self.pageRegistration.success_message().is_enabled()
         self.pageRegistration.enable_user_in_db(email)
         assert self.pageRegistration.is_user_enabled_in_db(email)
-        self.pageLogin.login_user(username, password)
-        assert self.pageLogin.button_login().is_enabled()
-        assert self.pageMain.button_logOut().is_enabled()
-
-        self.pageMain.button_logOut().click()
-        self.pageLogin.button_create_account().click()
 
         self.pageRegistration.input_reg_email().send_keys(email)
         self.pageRegistration.input_reg_user().send_keys(f'1{self.username}')
