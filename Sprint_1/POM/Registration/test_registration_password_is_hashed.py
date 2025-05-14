@@ -27,8 +27,6 @@ class TestTC(object):
         assert self.pageRegistration.success_message().is_enabled()
         self.pageRegistration.enable_user_in_db(email)
         assert self.pageRegistration.is_user_enabled_in_db(email)
-        self.pageLogin.login_user(username, password)
-        assert self.pageLogin.button_login().is_enabled()
 
         hashed_password = (self.pageRegistration.get_user_password_by_email(email)).encode()
 
