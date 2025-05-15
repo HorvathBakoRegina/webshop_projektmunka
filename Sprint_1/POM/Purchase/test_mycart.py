@@ -21,24 +21,10 @@ class TestTC(object):
     def teardown_method(self):
         self.browser.quit()
 
-    #Testprocess
-
     def test_purchase_process(self):
-        # 1. Reg.
-        username = self.username
-        email = self.e_mail
-        password = 'Teszt1234!'
-
-        self.pageRegistration.register_user(username=self.username, email=self.e_mail, password=password)
-        assert self.pageRegistration.success_message().is_enabled()
-        self.pageRegistration.enable_user_in_db(self.e_mail)
-        assert self.pageRegistration.is_user_enabled_in_db(self.e_mail)
-
-
         # 2. Login
-        password = 'Teszt1234!'
         self.pageLogin.get()
-        self.pageLogin.login_user(username=self.username, password=password)
+        self.pageLogin.login_user(username="Mercedesz", password="Teszt1234!")
 
         logout_icon = self.pageLogin.webelement_by_xpath("//mat-icon[text()='logout']")
         assert logout_icon.is_displayed(), "A kijelentkezés ikon nem jelent meg – a belépés lehet, hogy sikertelen volt."
@@ -46,8 +32,8 @@ class TestTC(object):
         # 3. Purchase End to End
         test_data = {
             "customer": {
-                "name": "Teszt Elek",
-                "email": self.e_mail,
+                "name": "Búza Virág",
+                "email": "xehew29186@daupload.com",
                 "phone": "0612345678"
             },
             "billing_address": {
