@@ -63,6 +63,7 @@ class TestTC(object):
             test_data["customer"]["email"],
             test_data["customer"]["phone"]
         )
+        assert self.pagePurchase.form_input_error_message() is True
         self.pagePurchase.click_next()
 
         # Billing Details

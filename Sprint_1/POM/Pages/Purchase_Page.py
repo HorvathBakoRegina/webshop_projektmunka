@@ -1,5 +1,5 @@
 from Sprint_1.POM.Pages.GeneralPage import GeneralPageClass
-
+from Sprint_1.POM.Pages.LoginPage import LoginPageClass
 
 class PurchasePageClass(GeneralPageClass):
     def __init__(self, browser):
@@ -21,6 +21,9 @@ class PurchasePageClass(GeneralPageClass):
 
     def back_to_cart(self):
         self.webelement_by_xpath("//span[text()='Back to the cart ']").click()
+
+    def form_input_error_message(self):
+        return self.webelement_by_xpath('//form/div/mat-error')
 
     def click_next(self):
         next_buttons = self.webelements_by_classname("next_btn")
