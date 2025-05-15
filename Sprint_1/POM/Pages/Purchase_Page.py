@@ -23,7 +23,12 @@ class PurchasePageClass(GeneralPageClass):
         self.webelement_by_xpath("//span[text()='Back to the cart ']").click()
 
     def form_input_error_message(self):
-        return self.webelement_by_xpath('//form/div/mat-error')
+        errors = self.webelements_by_classname("mat-error")
+        return len(errors) < 0
+
+    def get_cart_item_count(self):
+        badge = self.webelement_by_id("mat-badge-content-0")
+        return int(badge.text)
 
     def click_next(self):
         next_buttons = self.webelements_by_classname("next_btn")
@@ -31,6 +36,9 @@ class PurchasePageClass(GeneralPageClass):
             if btn.is_displayed() and btn.is_enabled():
                 btn.click()
                 break
+
+    def send_button(self):
+        self.webelement_by_classname("send_btn").click()
 
     def enter_customer_details(self, name, email, phone):
         self.webelement_by_xpath('//input[@id="formName_input"]').send_keys(name)

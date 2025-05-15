@@ -19,8 +19,7 @@ class TestTC(object):
     def teardown_method(self):
         self.browser.quit()
 
-    def test_purchase_process(self):
-
+    def test_purchase_process_invalid_city(self):
         # 2. Login
         self.pageLogin.get()
         self.pageLogin.login_user(username="Mercedesz", password="Teszt1234!")
@@ -37,13 +36,13 @@ class TestTC(object):
             "billing_address": {
                 "name": "Búza Virág",
                 "zip": "1234",
-                "city": "Budapest",
+                "city": "Bu",
                 "street": "Fő utca 1."
             },
             "shipping_address": {
                 "name": "Búza Virág",
                 "zip": "1234",
-                "city": "Budapest",
+                "city": "Bu",
                 "street": "Fő utca 1."
             },
             "delivery_note": "Kérem, csengetni.",
@@ -74,9 +73,8 @@ class TestTC(object):
             test_data["billing_address"]["city"],
             test_data["billing_address"]["street"]
         )
-        assert not self.pagePurchase.form_input_error_message()
         self.pagePurchase.click_next()
-
+        assert self.pagePurchase.form_input_error_message()
 
         # Shipping Details
         self.pagePurchase.shipping_details(
@@ -85,7 +83,7 @@ class TestTC(object):
             test_data["shipping_address"]["city"],
             test_data["shipping_address"]["street"]
         )
-        assert not self.pagePurchase.form_input_error_message()
+        assert self.pagePurchase.form_input_error_message()
         self.pagePurchase.click_next()
 
         # Delivery Information
@@ -97,7 +95,6 @@ class TestTC(object):
         self.pagePurchase.payment_opt(method=test_data["payment_method"])
         assert self.pagePurchase.send_button().is_displayed()
         self.pagePurchase.send_button()
-
 
         # Payment Confirmation
         confirmation_message = self.pagePurchase.get_payment_confirmation_message()

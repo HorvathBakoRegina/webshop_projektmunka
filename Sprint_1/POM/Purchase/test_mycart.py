@@ -57,7 +57,9 @@ class TestTC(object):
         for index in add_more_products:
             self.pagePurchase.product_add_to_cart(index=index)
         self.pagePurchase.open_cart()
+        assert self.pagePurchase.get_cart_item_count() == 3
         self.pageCart.remove_item()
+        assert self.pagePurchase.get_cart_item_count() == 2
         self.pagePurchase.click_checkout()
 
         # Order Details
@@ -66,6 +68,7 @@ class TestTC(object):
             test_data["customer"]["email"],
             test_data["customer"]["phone"]
         )
+        assert not self.pagePurchase.form_input_error_message()
         self.pagePurchase.click_next()
 
         # Billing Details
@@ -75,6 +78,7 @@ class TestTC(object):
             test_data["billing_address"]["city"],
             test_data["billing_address"]["street"]
         )
+        assert not self.pagePurchase.form_input_error_message()
         self.pagePurchase.click_next()
 
         # Shipping Details
@@ -84,15 +88,18 @@ class TestTC(object):
             test_data["shipping_address"]["city"],
             test_data["shipping_address"]["street"]
         )
+        assert not self.pagePurchase.form_input_error_message()
         self.pagePurchase.click_next()
 
         # Delivery Information
         self.pagePurchase.delivery_info(note=test_data["delivery_note"])
+        assert not self.pagePurchase.form_input_error_message()
         self.pagePurchase.click_next()
 
         # Payment Options
         self.pagePurchase.payment_opt(method=test_data["payment_method"])
-        self.pagePurchase.webelement_by_classname("send_btn").click()
+        assert self.pagePurchase.send_button().is_displayed()
+        self.pagePurchase.send_button()
 
         # Payment Confirmation
         confirmation_message = self.pagePurchase.get_payment_confirmation_message()

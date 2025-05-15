@@ -19,8 +19,7 @@ class TestTC(object):
     def teardown_method(self):
         self.browser.quit()
 
-    def test_purchase_process(self):
-
+    def test_purchase_process_invalid_email(self):
         # 2. Login
         self.pageLogin.get()
         self.pageLogin.login_user(username="Mercedesz", password="Teszt1234!")
@@ -31,7 +30,7 @@ class TestTC(object):
         test_data = {
             "customer": {
                 "name": "Búza Virág",
-                "email": "xehew29186@daupload.com",
+                "email": "xehew29186daupload.com",
                 "phone": "0612345678"
             },
             "billing_address": {
@@ -64,7 +63,7 @@ class TestTC(object):
             test_data["customer"]["email"],
             test_data["customer"]["phone"]
         )
-        assert not self.pagePurchase.form_input_error_message()
+        assert  self.pagePurchase.form_input_error_message()
         self.pagePurchase.click_next()
 
         # Billing Details
@@ -74,9 +73,8 @@ class TestTC(object):
             test_data["billing_address"]["city"],
             test_data["billing_address"]["street"]
         )
-        assert not self.pagePurchase.form_input_error_message()
         self.pagePurchase.click_next()
-
+        assert not self.pagePurchase.form_input_error_message()
 
         # Shipping Details
         self.pagePurchase.shipping_details(
@@ -97,7 +95,6 @@ class TestTC(object):
         self.pagePurchase.payment_opt(method=test_data["payment_method"])
         assert self.pagePurchase.send_button().is_displayed()
         self.pagePurchase.send_button()
-
 
         # Payment Confirmation
         confirmation_message = self.pagePurchase.get_payment_confirmation_message()
