@@ -39,7 +39,7 @@ jobs:
     - name: Run docker-compose
       uses: hoverkraft-tech/compose-action@v2.0.1
       with:
-        compose-file: "./Sprint-1/compose.yaml"
+        compose-file: "./Sprint_1/compose.yaml"
     - name: Restore the dump
       run: |
           cat ./Sprint-1/dump.sql | docker exec -i database /usr/bin/mysql -u root --password=test1234 moovsmart
