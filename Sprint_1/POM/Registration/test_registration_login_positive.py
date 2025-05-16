@@ -56,7 +56,7 @@ class TestTC(object):
         assert not self.pageLogin.error_message_wrong_user_pw().is_displayed()
 
     def test_registration_username_with_space(self):
-        username = f"{self.username} a"
+        username = self.pageRegistration.generate_username_with_space("u")
         email = self.e_mail
         password = "Teszt1234!"
 

@@ -66,6 +66,12 @@ class RegistrationPageClass(GeneralPageClass):
         tenth = str(now.microsecond)[0]
         return f"{prefix}_{timestamp_str}{tenth}"
 
+    def generate_username_with_space(self, prefix):
+        now = datetime.now()
+        timestamp_str = now.strftime("%d%m%y_%H%M%S")
+        tenth = str(now.microsecond)[0]
+        return f"{prefix} {timestamp_str}{tenth}"
+
     def generate_username_with_accent(self, prefix):
         now = datetime.now()
         timestamp_str = now.strftime("%H%M%S")
