@@ -36,18 +36,16 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Set PYTHONPATH
       run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
-    - name: Test with pytest
-      run: |
-        pytest --alluredir=allure-result
     - name: Run docker-compose
       uses: hoverkraft-tech/compose-action@v2.0.1
       with:
-        compose-file: "./Sprint-1/compose.yaml"
-
+        compose-file: "./Sprint_1/compose.yaml"
     - name: Restore the dump
       run: |
-          cat ./Sprint-1/dump.sql | docker exec -i database /usr/bin/mysql -u root --password=test1234 moovsmart
-
+          cat ./Sprint_1/dump.sql | docker exec -i database /usr/bin/mysql -u root --password=test1234 moovsmart
+    - name: Test with pytest
+      run: |
+        pytest --alluredir=allure-result
     - name: Allure Report action from marketplace
       uses: simple-elf/allure-report-action@master
       if: always()
