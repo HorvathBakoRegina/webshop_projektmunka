@@ -26,7 +26,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 pytest
+        pip install flake8 pytest allure-pytest selenium mysql-connector-python bcrypt
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with flake8
       run: |
@@ -34,23 +34,18 @@ jobs:
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install flake8 pytest allure-pytest
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Test with pytest
-      run: |
-        pytest --alluredir=allure-results
+    - name: Set PYTHONPATH
+      run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
     - name: Run docker-compose
       uses: hoverkraft-tech/compose-action@v2.0.1
       with:
-        compose-file: "./Sprint-1/compose.yaml"
-
+        compose-file: "./Sprint_1/compose.yaml"
     - name: Restore the dump
       run: |
-          cat ./Sprint-1/dump.sql | docker exec -i database /usr/bin/mysql -u root --password=test1234 moovsmart
-
+          cat ./Sprint_1/webshop_sprint1_admin.sql | docker exec -i database /usr/bin/mysql -u root --password=test1234 webshop
+    - name: Test with pytest
+      run: |
+        pytest --alluredir=allure-results
     - name: Allure Report action from marketplace
       uses: simple-elf/allure-report-action@master
       if: always()
