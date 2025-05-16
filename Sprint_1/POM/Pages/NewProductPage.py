@@ -30,5 +30,5 @@ class NewProductPageClass(GeneralPageClass):
     def cancel_button(self):
         return self.webelement_by_id('button_cancel')
 
-    def success_message(self):
-        return self.webelement_by_xpath(f'//mat-option[@id="input_option"][{index}]')
+    # def success_message(self):
+    #     return self.webelement_by_xpath(f'//mat-option[@id="input_option"][{index}]')
