@@ -17,23 +17,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.keys import Keys
 
-
-
-class TestTC(object):
-    def setup_method(self):
-        options = Options()
-        options.add_argument('--disable-search-engine-choice-screen')
-        options.add_experimental_option("detach", True)
-        self.browser = webdriver.Chrome(options=options)
-        self.browser.maximize_window()
-        self.browser.get(URL)
-
-    def teardown_method(self):
-        self.browser.quit()
-
-    def test_tc1(self):
-        pass
-
 class TestTC(object):
     def setup_method(self):
         self.browser = generate_preconfigured_browser()
