@@ -42,7 +42,7 @@ jobs:
         compose-file: "./Sprint_1/compose.yaml"
     - name: Restore the dump
       run: |
-          cat ./Sprint-1/dump.sql | docker exec -i database /usr/bin/mysql -u root --password=test1234 moovsmart
+          cat ./Sprint_1/webshop_sprint1_admin.sql | docker exec -i database /usr/bin/mysql -u root --password=test1234 moovsmart
     - name: Test with pytest
       run: |
         pytest --alluredir=allure-result
