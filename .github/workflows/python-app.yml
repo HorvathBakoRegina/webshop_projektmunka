@@ -8,7 +8,7 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-  workflow_dispatch: # Ezzel manuálisan is elindíthatod a workflow-t
+  workflow_dispatch: 
 
 permissions:
   contents: write
