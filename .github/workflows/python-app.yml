@@ -8,7 +8,7 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-  workflow_dispatch: 
+  workflow_dispatch: # Ezzel manuálisan is elindíthatod a workflow-t
 
 permissions:
   contents: write
@@ -45,17 +45,13 @@ jobs:
       run: |
         cat ./Sprint_1/webshop_sprint1_admin.sql | docker exec -i database /usr/bin/mysql -u root --password=test1234 webshop
     - name: Run Pytest with Allure
-      run: PYTHONPATH=. pytest -v --alluredir=allure-results # Fontos a -v a részletes kimenethez
-    - name: List Allure Results
-      if: always()
-      run: ls -la allure-results
-           ls -la
+      run: PYTHONPATH=. pytest -v --alluredir=allure-results
     - name: Generate Allure Report
       if: always()
       run: |
         allure generate allure-results -o allure-report
-        ls -la 
-    - name: Generate and Deploy Allure Report to Github Pages 
+        ls -la
+    - name: Deploy report to Github Pages
       if: always()
       uses: peaceiris/actions-gh-pages@v2
       env:
@@ -63,4 +59,3 @@ jobs:
         PUBLISH_BRANCH: gh-pages
       with:
         publish_dir: ./allure-report
-
