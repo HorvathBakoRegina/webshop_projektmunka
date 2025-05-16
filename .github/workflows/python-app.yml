@@ -27,7 +27,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 pytest allure-pytest selenium mysql-connector-python bcrypt allure-commandline
+        pip install flake8 pytest allure-pytest selenium mysql-connector-python bcrypt allure-commandline #hozzáadva
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with flake8
       run: |
@@ -45,17 +45,18 @@ jobs:
       run: |
         cat ./Sprint_1/webshop_sprint1_admin.sql | docker exec -i database /usr/bin/mysql -u root --password=test1234 webshop
     - name: Run Pytest with Allure
-      run: PYTHONPATH=. pytest -v --alluredir=allure-results
-    - name: Generate Allure Report
+      run: PYTHONPATH=. pytest -v --alluredir=allure-results # Fontos a -v a részletes kimenethez
+    - name: Generate Allure Report # Új lépés
       if: always()
       run: |
         allure generate allure-results -o allure-report
-        ls -la
-    - name: Deploy report to Github Pages
+        ls -la # Nézzük meg, mi jött létre
+    - name: Deploy report to Github Pages # Módosítjuk a nevet
       if: always()
       uses: peaceiris/actions-gh-pages@v2
       env:
         PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PUBLISH_BRANCH: gh-pages
       with:
-        publish_dir: ./allure-report
+        publish_dir: allure-report # Javítva a publish_dir-t
+        
