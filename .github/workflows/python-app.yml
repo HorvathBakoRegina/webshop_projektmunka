@@ -43,9 +43,8 @@ jobs:
     - name: Restore the dump
       run: |
           cat ./Sprint_1/webshop_sprint1_admin.sql | docker exec -i database /usr/bin/mysql -u root --password=test1234 webshop
-    - name: Test with pytest
-      run: |
-        pytest --alluredir=allure-results
+    - name: Run Pytest with Allure
+      run: PYTHONPATH=. pytest --alluredir=allure-results
     - name: Allure Report action from marketplace
       uses: simple-elf/allure-report-action@master
       if: always()
