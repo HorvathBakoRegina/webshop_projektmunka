@@ -8,7 +8,6 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-  workflow_dispatch: # Ezzel manuálisan is elindíthatod a workflow-t
 
 permissions:
   contents: write
@@ -24,20 +23,10 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: "3.10"
-    - name: Install Allure CLI
-      uses: actions/setup-java@v3
-      with:
-        distribution: 'jdk'
-        java-version: '11'
-    - run: |
-        curl -o allure.zip https://repo1.maven.org/maven2/io/qameta/allure/allure-commandline/2.25.0/allure-commandline-2.25.0.zip # A verziószámot ellenőrizd a legfrissebb kiadással
-        sudo mkdir -p /opt/allure
-        sudo unzip allure.zip -d /opt/allure
-        sudo ln -s /opt/allure/bin/allure /usr/local/bin/allure
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 pytest allure-pytest selenium mysql-connector-python bcrypt 
+        pip install flake8 pytest allure-pytest selenium mysql-connector-python bcrypt
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with flake8
       run: |
@@ -53,20 +42,23 @@ jobs:
         compose-file: "./Sprint_1/compose.yaml"
     - name: Restore the dump
       run: |
-        cat ./Sprint_1/webshop_sprint1_admin.sql | docker exec -i database /usr/bin/mysql -u root --password=test1234 webshop
-    - name: Run Pytest with Allure
-      run: PYTHONPATH=. pytest -v --alluredir=allure-results # Fontos a -v a részletes kimenethez
-    - name: Generate Allure Report # Új lépés
-      if: always()
+          cat ./Sprint_1/webshop_sprint1_admin.sql | docker exec -i database /usr/bin/mysql -u root --password=test1234 webshop
+    - name: Test with pytest
       run: |
-        allure generate allure-results -o allure-report
-        ls -la # Nézzük meg, mi jött létre
-    - name: Deploy report to Github Pages # Módosítjuk a nevet
+        pytest --alluredir=allure-results
+    - name: Allure Report action from marketplace
+      uses: simple-elf/allure-report-action@master
+      if: always()
+      with:
+        allure_results: allure-results
+        allure_history: allure-history
+        keep_reports: 20
+
+    - name: Deploy report to Github Pages
       if: always()
       uses: peaceiris/actions-gh-pages@v2
       env:
         PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PUBLISH_BRANCH: gh-pages
-      with:
-        publish_dir: allure-report # Javítva a publish_dir-t
+        PUBLISH_DIR: allure-history
         
