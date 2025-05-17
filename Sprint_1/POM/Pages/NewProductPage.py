@@ -1,5 +1,7 @@
 from Sprint_1.POM.Pages.GeneralPage import GeneralPageClass
 
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
 class NewProductPageClass(GeneralPageClass):
     def __init__(self, browser):
@@ -30,5 +32,5 @@ class NewProductPageClass(GeneralPageClass):
     def cancel_button(self):
         return self.webelement_by_id('button_cancel')
 
-    # def success_message(self):
-    #     return self.webelement_by_xpath(f'//mat-option[@id="input_option"][{index}]')
+    def overlay_text(self):
+        return self.visibility_of_webelement_by_classname('mat-simple-snack-bar-content')
