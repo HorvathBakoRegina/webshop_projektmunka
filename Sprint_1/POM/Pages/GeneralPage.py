@@ -46,6 +46,9 @@ class GeneralPageClass(object):
     def webelement_by_classname(self, classname):
         return self.wait.until(EC.element_to_be_clickable((By.CLASS_NAME, f'{classname}')))
 
+    def visibility_of_webelement_by_classname(self, classname):
+        return self.wait.until(EC.visibility_of_element_located((By.CLASS_NAME, f'{classname}')))
+
     def webelements_by_classname(self, classname):
         return self.browser.find_elements(By.CLASS_NAME, classname)
 
