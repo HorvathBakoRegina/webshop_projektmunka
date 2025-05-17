@@ -64,3 +64,15 @@ class MainPageClass(GeneralPageClass):
 
     def button_delete(self, product_id):
         return self.webelement_by_xpath(f'//div[@id="{product_id}"]//button[@id="button_delete"]')
+
+    def button_delete_no(self):
+        return self.webelement_by_xpath('//button/span[text()= "No"]/..')
+
+    def button_delete_yes(self):
+        return self.webelement_by_xpath('//button/span[text()= "Yes"]/..')
+
+    def product(self, product_id):
+        return self.webelement_by_xpath(f'//div[@id="{product_id}"]')
+
+    def product_list(self):
+        return self.webelements_by_xpath('//div[@class="row"]/div')
