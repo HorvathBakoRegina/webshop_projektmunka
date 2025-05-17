@@ -1,5 +1,7 @@
+allure-pytest
 allure-pytest==2.13.5
 allure-python-commons==2.13.5
+allure-commandline
 altgraph @ file:///AppleInternal/Library/BuildRoots/bcce998f-ff34-11ef-9d34-f2a857e00a32/Library/Caches/com.apple.xbs/Sources/python3/altgraph-0.17.2-py2.py3-none-any.whl
 attrs==25.1.0
 bcrypt==4.3.0

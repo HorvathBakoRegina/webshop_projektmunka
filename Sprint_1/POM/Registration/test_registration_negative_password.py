@@ -1,5 +1,6 @@
 import csv
 import pytest
+import os
 
 from Sprint_1.POM.Pages.MainPage import MainPageClass
 from Sprint_1.POM.Pages.LoginPage import LoginPageClass
@@ -8,7 +9,8 @@ from Sprint_1.POM.generate_preconfigured_browser import generate_preconfigured_b
 
 def load_test_data():
     testdata_list = []
-    path = "testdata_registration_negative_password.csv"
+    current_dir = os.path.dirname(__file__)
+    path = os.path.join(current_dir, "testdata_registration_negative_password.csv")
     with open(path, "r", encoding="utf-8") as dictfile:
         data = csv.DictReader(dictfile, delimiter=";")
         for row in data:
