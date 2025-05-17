@@ -1,5 +1,6 @@
 from selenium.webdriver.common.keys import Keys
 
+from Sprint_1.POM.Admin.testdata_new_product import TESTDATA1
 from Sprint_1.POM.Pages.LoginPage import LoginPageClass
 from Sprint_1.POM.Pages.MainPage import MainPageClass
 from Sprint_1.POM.Pages.NewProductPage import NewProductPageClass
@@ -13,13 +14,6 @@ class TestTC(object):
         self.pageMain = MainPageClass(self.browser)
         self.pageProduct = NewProductPageClass(self.browser)
         self.pageLogin.get()
-        self.TESTDATA = {
-            "Product Name": 'Hangdrum',
-            "Categories": 3,
-            "Price": 200,
-            "Description": 'Steel tongue drum for Music Gift and Meditation, 14 inch, 440 Hz or 432 Hz',
-            "Image URL": '',
-        }
         # Login
         self.pageLogin.input_username().send_keys('Nyuszit%20Eszter')
         self.pageLogin.input_password().send_keys('Teszt1234?')
@@ -29,16 +23,15 @@ class TestTC(object):
 
     def teardown_method(self):
         self.browser.quit()
-        pass
 
     def test_new_product(self):
-        # Fills in form, saves new product, and checks confirmation message.
-        self.pageProduct.product_name().send_keys(self.TESTDATA['Product Name'])
+        # Fills in form, saves new product and checks confirmation message.
+        self.pageProduct.product_name().send_keys(TESTDATA1['Product Name'])
         self.pageProduct.product_category().click()
-        self.pageProduct.product_categories(self.TESTDATA['Categories']).click()
+        self.pageProduct.product_categories(TESTDATA1['Categories']).click()
         self.pageProduct.product_category().send_keys(Keys.ESCAPE)
-        self.pageProduct.product_price().send_keys(self.TESTDATA['Price'])
-        self.pageProduct.product_description().send_keys(self.TESTDATA['Description'])
+        self.pageProduct.product_price().send_keys(TESTDATA1['Price'])
+        self.pageProduct.product_description().send_keys(TESTDATA1['Description'])
 
         self.pageProduct.save_product().click()
 
