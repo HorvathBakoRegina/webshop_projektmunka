@@ -22,7 +22,20 @@ class TestTC(object):
         self.pageMain.button_newProduct().click()
 
     def teardown_method(self):
+
+        # Saves the highest (newly created) product ID into a testdata file
+        self.pageMain.button_products().click()
+
+        product_id_list = []
+        for i in self.pageMain.product_list():
+            product_id_list.append(int(i.get_attribute("id")))
+
+        with open("testdata_new_product_ID.py", "w") as f:
+            f.write(f'Product_ID = {max(product_id_list)}')
+
         self.browser.quit()
+
+
 
     def test_new_product(self):
         # Fills in form, saves new product and checks confirmation message.
@@ -37,3 +50,8 @@ class TestTC(object):
 
         assert "success" in self.pageProduct.overlay_text().text.lower()
         assert "unsuccessful" not in self.pageProduct.overlay_text().text.lower()
+
+
+
+
+

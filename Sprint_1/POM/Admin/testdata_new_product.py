@@ -6,7 +6,6 @@ TESTDATA1 = {
     "Image URL": '',
 }
 TESTDATA2 = {
-    "Product ID": 65,
     "Product Name": 'Lyrical Hangdrum',
     "Categories": 8,
     "Price": "300",

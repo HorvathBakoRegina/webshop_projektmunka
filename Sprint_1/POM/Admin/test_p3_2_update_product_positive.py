@@ -1,6 +1,7 @@
 from selenium.webdriver.common.keys import Keys
 
 from Sprint_1.POM.Admin.testdata_new_product import TESTDATA1, TESTDATA2
+from Sprint_1.POM.Admin.testdata_new_product_ID import Product_ID
 from Sprint_1.POM.Pages.DetailsPage import DetailsPageClass
 from Sprint_1.POM.Pages.LoginPage import LoginPageClass
 from Sprint_1.POM.Pages.MainPage import MainPageClass
@@ -26,7 +27,7 @@ class TestTC(object):
 
     def test_update_product(self):
         # Opens the edit page of a specific product by product ID
-        self.pageMain.button_edit(TESTDATA2['Product ID']).click()
+        self.pageMain.button_edit(Product_ID).click()
 
         # Clears previously given input, enters and saves new input
         self.pageProduct.product_name().clear()
@@ -47,7 +48,7 @@ class TestTC(object):
         self.pageProduct.save_product().click()
 
         # Opens the details page of the modified product and checks if the data matches the new input
-        self.pageMain.button_details(TESTDATA2['Product ID']).click()
+        self.pageMain.button_details(Product_ID).click()
         assert TESTDATA2['Product Name'] in self.pageDetails.product_name_detail().text
         assert category_name in self.pageDetails.product_category_detail().text
         assert TESTDATA2['Price'] in self.pageDetails.product_price_detail().text
