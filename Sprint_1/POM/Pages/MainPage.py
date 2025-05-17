@@ -44,11 +44,23 @@ class MainPageClass(GeneralPageClass):
     def buttons_details(self):
         return self.webelements_by_id('button_details')
 
+    def button_details(self, product_id):
+        return self.webelement_by_xpath(f'//div[@id="{product_id}"]//button[@id="button_details"]')
+
     def buttons_add_cart(self):
         return self.webelements_by_id('button_addToCart')
+
+    def button_add_cart(self, product_id):
+        return self.webelement_by_xpath(f'//div[@id="{product_id}"]//button[@id="button_addToCart"]')
 
     def buttons_edit(self):
         return self.webelements_by_id('button_edit')
 
+    def button_edit(self, product_id):
+        return self.webelement_by_xpath(f'//div[@id="{product_id}"]//button[@id="button_edit"]')
+
     def buttons_delete(self):
         return self.webelements_by_id('button_delete')
+
+    def button_delete(self, product_id):
+        return self.webelement_by_xpath(f'//div[@id="{product_id}"]//button[@id="button_delete"]')
