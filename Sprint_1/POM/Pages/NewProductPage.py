@@ -1,7 +1,5 @@
 from Sprint_1.POM.Pages.GeneralPage import GeneralPageClass
 
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 
 class NewProductPageClass(GeneralPageClass):
     def __init__(self, browser):
