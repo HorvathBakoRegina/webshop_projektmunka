@@ -34,8 +34,14 @@ class GeneralPageClass(object):
     def webelement_by_xpath(self, xpath):
         return self.wait.until(EC.element_to_be_clickable((By.XPATH, f'{xpath}')))
 
+    def visibility_of_webelement_by_xpath(self, xpath):
+        return self.wait.until(EC.visibility_of_element_located((By.XPATH, f'{xpath}')))
+
     def webelement_by_id(self, id):
         return self.wait.until(EC.element_to_be_clickable((By.ID, f'{id}')))
+
+    def visibility_of_webelement_by_id(self, id):
+        return self.wait.until(EC.visibility_of_element_located((By.ID, f'{id}')))
 
     def webelements_by_id(self, id):
         return self.wait.until(EC.visibility_of_all_elements_located((By.ID, f'{id}')))
